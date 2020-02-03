@@ -1,26 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import './App.less';
+// import { Button } from "antd";
+import NewComp from './newComp';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.PureComponent{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            data : { number : 2 },
+            data1 : ''
+        }
+    }
+
+    InFirstComponent = () => {
+        console.log("in parent " + Math.random())
+        console.log(this.state.data)
+    }
+
+    newState = () => {
+        this.setState({
+            data1 : this.state.data
+        })
+    }
+
+    newStateUpdate = () => {
+        this.setState({
+            data1: { number : "the value is updated to string"}
+        })
+    }
+
+    showUpdated = () => {
+        console.log(this.state.data);
+        console.log(this.state.data1);
+    }
+
+    render()
+    {
+        const { data } = this.state;
+        return (
+            <>
+                <br/>---------------<br/>
+                In parent : { data.number }
+                <br/>---------------<br/>
+
+                <NewComp data={data} func = {this.InFirstComponent} ></NewComp>
+
+                <button onClick={ this.newState }> Set values to New state Object </button>
+
+                <button onClick={ this.newStateUpdate }> Update values to New state Object </button>
+
+                <button onClick={ this.showUpdated }> Show updated </button>
+            </>
+        )
+    }
 }
 
 export default App;
